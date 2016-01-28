@@ -8,13 +8,17 @@ QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+CONFIG += c++11
+
 TARGET = ArduinoSonar
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    arducomm.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    arducomm.h
 
 FORMS    += widget.ui
