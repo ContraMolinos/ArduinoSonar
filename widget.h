@@ -2,13 +2,14 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QDebug>
 #include <QString>
 #include <QMessageBox>
 #include "arducomm.h"
+#include "displaysonar.h"
 #include <QSerialPortInfo>
-#include <QPaintEvent>
-#include <QPainter>
+#include <QGraphicsScene>
+#include <QGraphicsEllipseItem>
+
 
 namespace Ui {
 class Widget;
@@ -23,15 +24,18 @@ public:
     ~Widget();
 
 private slots:
-    void on_portBox_currentIndexChanged(const QString &arg1);
+    void on_portBox_currentIndexChanged(int idx);
     void printTest();
+    void refresh();
 
 private:
     Ui::Widget *ui;
     QSerialPortInfo *portInfo;
     arduComm *arduPort;
-protected:
-    //void paintEvent(QPaintEvent *e);
+    QGraphicsScene *outGraph;
+    QGraphicsEllipseItem *tempEllipse;
+    displaySonar *display;
+
 };
 
 #endif // WIDGET_H

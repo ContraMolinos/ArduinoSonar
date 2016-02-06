@@ -1,9 +1,8 @@
 #include "arducomm.h"
 #include <QDebug>
 
-arduComm::arduComm()
+arduComm::arduComm(QObject *parent):QObject(parent)
 {
-    //TODO: Find out how to set parent.
     portPointer=new QSerialPort(this);
     portOpen=false;
 
@@ -13,6 +12,7 @@ arduComm::arduComm()
 
 arduComm::~arduComm()
 {
+    delete buffer;
     closePort();
 }
 
@@ -67,11 +67,17 @@ int arduComm::readPort(QByteArray *buf)
     if(portOpen)
     {
         int nAvail=portPointer->bytesAvailable();
+        if(!portPointer->canReadLine())
+        {
+            return -1;
+        }  //Not possible to read a line.
+       // qDebug()<<nAvail<<" bytes available";
         if(nAvail<1)
             throw "No data in port.";
         //Every line should be a different set of data.
-        if(portPointer->canReadLine())
+        //if(portPointer->canReadLine())
             buf->append(portPointer->readLine());
+        //qDebug()<<"Read "<<*buf;
         return buf->length();
     }
 
@@ -83,7 +89,18 @@ const QByteArray *arduComm::getBuffer()
     return buffer;
 }
 
-//This slot links the port's readyRead signal with the outside of the class.
+/**
+ * @brief arduComm::isPortReady Checking whether a full line is awaiting to be read in the port buffer
+ * @return Yes or no.
+ */
+bool arduComm::isPortReady()
+{
+    return portPointer->canReadLine();
+}
+
+/**
+ * @brief arduComm::ready   This slot links the port's readyRead signal with the outside of the class.
+ */
 void arduComm::ready()
 {
     emit readyRead();

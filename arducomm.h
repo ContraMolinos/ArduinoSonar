@@ -1,7 +1,7 @@
 #ifndef ARDUCOMM_H
 #define ARDUCOMM_H
 
-/* This class is meant to handle the communication
+/** This class is meant to handle the communication
  * with arduino. In principle, it is meant to be used
  * only with the ultrasound detector.
 */
@@ -14,13 +14,14 @@ class arduComm: public QObject
 {
     Q_OBJECT
 public:
-    arduComm();
+    arduComm(QObject *parent=0);
     ~arduComm();
     //arduComm(QString portName,QWidget *parent);
     bool openPort(QString portName,QSerialPort::OpenMode mode, QSerialPort::BaudRate br=QSerialPort::Baud9600);
     int readPort(QByteArray *buffer);  //This version of readPort is meant to write on a outside array.
     int readPort();   //This version is meant to be used to write in the internal buffer.
     const QByteArray* getBuffer();
+    bool isPortReady();
     bool closePort();
 public slots:
     void ready();

@@ -16,9 +16,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         widget.cpp \
-    arducomm.cpp
+    arducomm.cpp \
+    displaysonar.cpp
 
 HEADERS  += widget.h \
-    arducomm.h
+    arducomm.h \
+    displaysonar.h
 
 FORMS    += widget.ui
