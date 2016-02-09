@@ -2,7 +2,7 @@
     FJS. February 2016
   Application to visualize the output of an arduino-based sonar.
   06-02-2016. Version 1.0. First working version.
-
+  07-02-2016. Solved list out of bounds bug.
 */
 
 

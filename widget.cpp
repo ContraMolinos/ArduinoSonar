@@ -1,3 +1,10 @@
+/**     Arduino Sonar
+    FJS. February 2016
+  Application to visualize the output of an arduino-based sonar.
+  06-02-2016. Version 1.0. First working version.
+  07-02-2016. Solved list out of bounds bug.
+*/
+
 #include "widget.h"
 #include "ui_widget.h"
 
@@ -77,12 +84,16 @@ void Widget::refresh()
     QString rawData(arduPort->getBuffer()->data());
     if(!rawData.contains("->")) return;     //The "->" string is the separator. If it isn't present, something's wrong.
     QStringList strData=rawData.split("->");
-    int angle=strData[0].toInt();
-    int distance=strData[1].toInt()/58.3;
-    int limit=strData[2].toInt()/58.3;
-    display->update(distance,angle,limit);
+    //qDebug()<<strData.size()<<" "<<strData.count();
+    if(strData.size()>2)
+    {
+        int angle=strData[0].toInt();
+        int distance=strData[1].toInt()/58.3;
+        int limit=strData[2].toInt()/58.3;
+        display->update(distance,angle,limit);
 
-    //Display the reading in auxiliary edit.
-    ui->plainTextEdit->setPlainText(QString::number(angle)+","+QString::number(distance)+","+QString::number(limit));
-    ui->plainTextEdit->moveCursor(QTextCursor::End);
+        //Display the reading in auxiliary edit.
+        ui->plainTextEdit->setPlainText(QString::number(angle)+","+QString::number(distance)+","+QString::number(limit));
+        ui->plainTextEdit->moveCursor(QTextCursor::End);
+    }
 }
