@@ -1,9 +1,11 @@
 #ifndef DISPLAYSONAR_H
 #define DISPLAYSONAR_H
 
-/**
+/*!
  * Class to manage the sonar-like representation of the data retrieved from
  * Arduino with the SR04 ultrasound module.
+ *
+ * 16-02-2016. Added ScreenDisplay.
  */
 
 #include <QGraphicsScene>

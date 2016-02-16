@@ -1,10 +1,14 @@
 #ifndef SCREENDISPLAY_H
 #define SCREENDISPLAY_H
 
-/**
+/*!
  * @brief The ScreenDisplay class
  * Class inherited from QGraphicsItem to draw the
  * screen of the sonar.
+ *
+ * 16-02-2016. First working version. It draws distance
+ * circles, direction lines and scales.
+ * TODO: Improve the labeling of the screen.
  */
 
 #include <QGraphicsItem>
