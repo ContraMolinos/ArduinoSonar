@@ -27,17 +27,6 @@ Widget::Widget(QWidget *parent) :
 
     //Create output scene
     display=new displaySonar(ui->outDraw,this);
-
-//    outGraph=new QGraphicsScene(this);
-//    ui->outDraw->setScene(outGraph);
-//    outGraph->setSceneRect(-ui->outDraw->width()/2,-ui->outDraw->height()/2,ui->outDraw->width(),ui->outDraw->height());
-//    //ui->outDraw->scale(ui->outDraw->width()/outGraph->width(),ui->outDraw->height()/outGraph->height());
-//    tempEllipse=outGraph->addEllipse(-10,-10,20,20);
-//    outGraph->addLine(-100,0,100,0);
-//    outGraph->addLine(0,-100,0,100);
-//    //ui->outDraw->centerOn(0,0);
-
-
 }
 
 Widget::~Widget()
@@ -65,10 +54,6 @@ void Widget::printTest()
         if(!text.contains("->"))    return;
         int dist=text.split("->")[1].toInt();
         int angle=text.split("->")[0].toInt();
-        if(dist<23200)
-        {
-            //display->update(dist/23200.0,angle);
-        }
         ui->plainTextEdit->setPlainText(QString::number(angle)+","+QString::number(dist));
         ui->plainTextEdit->moveCursor(QTextCursor::End);
     }
@@ -89,7 +74,7 @@ void Widget::refresh()
     {
         int angle=strData[0].toInt();
         int distance=strData[1].toInt()/58.3;
-        int limit=strData[2].toInt()/58.3;
+        int limit=strData[2].toInt();
         display->update(distance,angle,limit);
 
         //Display the reading in auxiliary edit.

@@ -18,7 +18,8 @@ displaySonar::displaySonar(QGraphicsView *view, QObject *parent) : QObject(paren
     scene->setSceneRect(-viewWidth/2,-viewHeight/2,viewWidth,viewHeight);
 
     //This line will be static.
-    baseLine=scene->addLine(-0.8*viewWidth/2,0.8*viewHeight/2,0.8*viewWidth/2,0.8*viewHeight/2);
+    screen=new ScreenDisplay(viewWidth,viewHeight);
+    scene->addItem(screen);
     QPen pen;
     pen.setColor(Qt::green);
     pen.setWidth(2);
@@ -37,6 +38,7 @@ displaySonar::~displaySonar()
     for(int i=0;i<keys.size();i++)
         removeEcho(keys.at(i));
     delete displayPoints;
+    delete screen;
 }
 
 /**
@@ -54,6 +56,7 @@ void displaySonar::update(float r, float alpha,float limit)
     removeEcho(alpha);
     if(r<limit)   //Something was detected.
             newEcho(r*sweepLineLenght/limit,alpha);
+    screen->setScale(limit);
 }
 
 
@@ -83,7 +86,7 @@ QPoint displaySonar::polarToCartesian(float r, float alpha)
  * @param r Distance of the echo to the origin.
  * @param alpha Angle of the echo.
  */
-void *displaySonar::newEcho(float r, float alpha)
+void displaySonar::newEcho(float r, float alpha)
 {
     QPoint p=polarToCartesian(r,alpha);
 

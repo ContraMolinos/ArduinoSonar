@@ -1,6 +1,11 @@
 #ifndef DISPLAYSONAR_H
 #define DISPLAYSONAR_H
 
+/**
+ * Class to manage the sonar-like representation of the data retrieved from
+ * Arduino with the SR04 ultrasound module.
+ */
+
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsEllipseItem>
@@ -8,13 +13,10 @@
 #include <QPoint>
 #include <QHash>
 #include <QDebug>
+#include "screendisplay.h"
 
 #define PI 3.14159265
 
-/**
- * Class to manage the sonar-like representation of the data retrieved from
- * Arduino with the SR04 ultrasound module.
- */
 
 class displaySonar : public QObject
 {
@@ -33,15 +35,12 @@ private:
     float sweepLineLenght;  //Length of the sweeping line in the graph.
     QGraphicsLineItem *baseLine;
     QGraphicsLineItem *sweepLine;
-   // QPen *pen;
     QHash<float, QGraphicsEllipseItem*> *displayPoints;   //It is mean to contain a hash of pairs (angle,point) when an echo is received.
     int dotRadius=3;
-
-    QGraphicsEllipseItem temp;
-
+    ScreenDisplay *screen;
 
     QPoint polarToCartesian(float r, float alpha);
-    void *newEcho(float r, float alpha);
+    void newEcho(float r, float alpha);
     void removeEcho(float alpha);
 
 signals:

@@ -1,10 +1,9 @@
 #include "arducomm.h"
 #include <QDebug>
 
-arduComm::arduComm(QObject *parent):QObject(parent)
+arduComm::arduComm(QObject *parent):QObject(parent),portOpen(false)
 {
     portPointer=new QSerialPort(this);
-    portOpen=false;
 
     //Initialize buffer.
     buffer=new QByteArray();
