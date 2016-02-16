@@ -54,7 +54,7 @@ void displaySonar::update(float r, float alpha,float limit)
     sweepLine->setLine(-lineEnd.x(),0.8*viewHeight/2-lineEnd.y(),0,0.8*viewHeight/2);
 
     removeEcho(alpha);
-    if(r<limit)   //Something was detected.
+    if(r<limit && r>0)   //Something was detected.
             newEcho(r*sweepLineLenght/limit,alpha);
     screen->setScale(limit);
 }
